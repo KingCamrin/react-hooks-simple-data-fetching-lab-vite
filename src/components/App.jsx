@@ -6,38 +6,47 @@ function App() {
 
 const [dogImage, setDogImage] = useState("");
 const [loading, setLoading] = useState(true);
- 
-useEffect(() => {
-fetch();
-}, []);
-function fetchdog(){
+
+
+
+function fetchDog() {
 setLoading(true);
-fetch("https://dog.ceo/api/breeds/image/random”")
+fetch('https://dog.ceo/api/breeds/image/random')
 .then(response => response.json())
 .then(data => {
-  setDogImage(data.dogImage);
-  setLoading(false);
+  setDogImage(data.message);
+   setLoading(false);
 })
   .catch(error => {
     console.log("error fetching image:", error)
 });
 }
 
+  
+useEffect(() => {
+    fetchDog();
+}, []);
+
+return (
+  <div>
+    {loading ? <p>Loading...</p> : <img src={dogImage} alt="A Random Dog" />}
+    <button onClick={fetchDog}>Get a new Dog</button>
+  </div>
+);
 
 
 
 
-  return (
-    <div className="app">
-      <h1>Programming Jokes</h1>
-      {/* Step 4: Pass the necessary props to JokeDisplay */}
-      <JokeDisplay joke={joke} loading={loading} />
-      
-      {/* Step 5: Pass the function to FetchButton so it can fetch a new joke on click */}
-      <FetchButton fetchJoke={fetchJoke} />
-    </div>
-  )
+
+
+
+
+
+
+
+
+
+
+
 }
-
 export default App
-
